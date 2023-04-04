@@ -10,10 +10,17 @@ const AddComment = (props) => {
 
   useEffect(() => {
     console.log("ComponentDidMount (useEffect)");
-    setComment(comment, (comment.elementId = props.asin));
+    setComment({ ...comment, elementId: props.asin });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.asin]);
 
+  /*
+  useEffect(() => {
+    console.log("ComponentDidMount (useEffect)");
+    setComment((comment.elementId = props.asin));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [comment]);
+*/
   const sendComment = async (e) => {
     e.preventDefault();
     try {
@@ -51,7 +58,7 @@ const AddComment = (props) => {
             type="text"
             placeholder="Add comment here"
             value={comment.comment}
-            onChange={(e) => setComment(comment, (comment.comment = e.target.value))}
+            onChange={(e) => setComment({ ...comment, comment: e.target.value })}
           />
         </Form.Group>
         <Form.Group>
@@ -59,7 +66,7 @@ const AddComment = (props) => {
           <Form.Control
             as="select"
             value={comment.rate}
-            onChange={(e) => setComment(comment, (comment.rate = e.target.value))}
+            onChange={(e) => setComment({ ...comment, rate: e.target.value })}
           >
             <option>1</option>
             <option>2</option>
